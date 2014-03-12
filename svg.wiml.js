@@ -1,4 +1,4 @@
-// svg.wiml.js 0.1.0 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
+// svg.wiml.js 0.1.1 - Copyright (c) 2014 Wout Fierens - Licensed under the MIT license
 ;(function() {
 
   SVG.WIML = SVG.invent({
@@ -108,6 +108,9 @@
           })
         }
 
+        /* parse escaped % values */
+        content = content.replace(/%%%/g, '<wiml:percent>')
+
         /* render WIML to svg */
         this.target.text(function(add) {
 
@@ -134,7 +137,8 @@
 
                 /* split part and store text */
                 if (m = parts[i].match(SVG.regex.wiml.instance)) {
-                  t.text = m[3]
+                  /* convert wiml:percent into % signs */
+                  t.text = m[3].replace(/<wiml:percent>/g, '%')
 
                   /* build attribute object */
                   if (m[2]) {

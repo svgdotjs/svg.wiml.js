@@ -145,6 +145,18 @@ describe('WIML', function() {
       })
     })
 
+    describe('with nested percent', function() {
+      it('escapes the percent value properly', function() {
+        wiml = text.wiml('I am %{fill:#f06}about 100%%% sure% it will work.')
+        expect(text.node.firstChild.childNodes[0].nodeType).toBe(3)
+        expect(text.node.firstChild.childNodes[0].nodeValue).toBe('I am ')
+        expect(text.node.firstChild.childNodes[1].nodeType).toBe(1)
+        expect(text.node.firstChild.childNodes[1].firstChild.nodeValue).toBe('about 100% sure')
+        expect(text.node.firstChild.childNodes[2].nodeType).toBe(3)
+        expect(text.node.firstChild.childNodes[2].nodeValue).toBe(' it will work.')
+      })
+    })
+
     describe('with conditional "if"', function() {
       describe('single condition', function() {
         it('does render when conditional "if" attributes are met', function() {
@@ -394,8 +406,6 @@ describe('WIML', function() {
       })
     })
   })
-  
-  
 })
 
 

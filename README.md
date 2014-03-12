@@ -144,15 +144,22 @@ draw.wiml('Just %{unless:description+content}some% %=description% %=content% con
 // => Just fabulous text content!
 ```
 
+Finally, there might be cases where some values are required and some are not. In that case, the ! operator can be used before the variable name:
+
+```javascript
+draw.wiml('Just %{if:description+!content}some% %=description% %=content% content!', { description: 'fabulous', content: 'text' })
+// => Just fabulous content!
+```
+
 ## Important
 
 ### Nested tspans
 With the current syntax nested tspans are not possible.
 
 ### Using % inside a WIML tspan
-Can be done by escaping the `%` sign inside the WIML tspan:
+Can be done by wrapping the `%` sign inside the WIML tspan:
 
 ```haml
-I am %{fill:#f06}about 100\% sure% it will work.
+I am %{fill:#f06}about 100%%% sure% it will work.
 ```
 
